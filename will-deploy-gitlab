@@ -1,0 +1,2 @@
+#!/bin/bash
+bash <(curl -sL install.hdyauto.qzz.io/deploy-down-install.sh) will-service-deploy will-deploy-gitlab docker main

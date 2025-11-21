@@ -1,0 +1,190 @@
+#!/bin/bash
+# ==============================
+# 🧭 GitHub 仓库应用安装管理器
+# ==============================
+
+# ======= 基本配置 =======
+# GitHub_User=will-service-deploy                       # GitHub 用户名或组织名
+# GitHub_Repo_Name=will-deploy-gitlab                   # 仓库名
+# GitHub_Path=docker                                    # ← 你可以改成 "services" 或其他文件夹
+# GitHub_Repo_Branch=main                               # 分支名，例如 main 或 master
+
+GitHub_User="$1"                      # GitHub 用户名或组织名
+GitHub_Repo_Name="$2"                   # 仓库名
+GitHub_Path="$3"                                    # ← 你可以改成 "services" 或其他文件夹
+GitHub_Repo_Branch="$4"                               # 分支名，例如 main 或 master
+
+App_Token="" # 私有仓库需要填 Token，公有仓库留空即可
+
+get_token() {
+	# 创建临时文件
+	GitHub_Token_tmpfile=$(mktemp)
+
+	# 下载远程函数脚本到临时文件
+	curl -sSL https://install.hdyauto.qzz.io/will-service-deploy_ServiceDeployApp-token.sh -o "$GitHub_Token_tmpfile"
+
+	# source / 导入
+	. "$GitHub_Token_tmpfile"
+
+	# 删除临时文件
+	rm -f "$GitHub_Token_tmpfile"
+
+	# 调用函数
+	App_Token=$(get_github_app_token)
+	# echo $App_Token
+}
+
+get_token # 获取 Token
+
+
+load_fun_git() {
+	tmp_file=$(mktemp)
+	curl -sSL https://install.hdyauto.qzz.io/fun_git.sh -o "$tmp_file"
+	. "$tmp_file"
+	rm -f "$tmp_file"
+}
+
+load_fun_deps() {
+	tmp_file=$(mktemp)
+	curl -sSL https://install.hdyauto.qzz.io/fun_deps.sh -o "$tmp_file"
+	. "$tmp_file"
+	rm -f "$tmp_file"
+}
+
+Install_Dir="/home/devops"
+
+# 智能判断安装目录
+if [ "$(uname)" = "Darwin" ]; then
+	Install_Dir="$HOME/home/install/devops"
+else
+	Install_Dir="/home/devops"
+fi
+
+echo "$Install_Dir"
+
+mkdir -p "$Install_Dir"
+
+# 输出函数
+echo_content() {
+	ECHO_TYPE="echo -e"
+	case $1 in
+	"red")
+		${ECHO_TYPE} "\033[31m$2\033[0m"
+		;;
+	"green")
+		${ECHO_TYPE} "\033[32m$2\033[0m"
+		;;
+	"yellow")
+		${ECHO_TYPE} "\033[33m$2\033[0m"
+		;;
+	"blue")
+		${ECHO_TYPE} "\033[34m$2\033[0m"
+		;;
+	"purple")
+		${ECHO_TYPE} "\033[35m$2\033[0m"
+		;;
+	"skyBlue")
+		${ECHO_TYPE} "\033[36m$2\033[0m"
+		;;
+	"white")
+		${ECHO_TYPE} "\033[37m$2\033[0m"
+		;;
+	esac
+}
+
+show_menu() {
+	clear
+	echo "=============================="
+	echo "🚀 远程应用安装菜单"
+	echo "仓库: ${GitHub_User}/${GitHub_Repo_Name} (${GitHub_Repo_Branch})"
+	echo "=============================="
+
+	local i=1
+	for dir in $App_Dir_List; do
+		if fungit_is_installed "$Install_Dir" "$dir"; then
+
+			local local_sha=$(fungit_get_local_version "$Install_Dir" "$dir")
+			local remote_sha=$(fungit_get_remote_latest_sha "$dir" "$App_Token" "$GitHub_Path" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch")
+
+			if [ "$local_sha" = "$remote_sha" ]; then
+				STATUS="🟢 已安装（最新）"
+			else
+				STATUS="🟡 已安装（可更新）"
+			fi
+		else
+			STATUS="⚪ 未安装"
+		fi
+
+		echo "$i) $dir [$STATUS]"
+		((i++))
+	done
+	echo ""
+	echo "0) 退出"
+	echo "------------------------------"
+}
+
+# ======= 主循环 =======
+main_loop() {
+	while true; do
+		show_menu
+		read -p "请输入编号以安装/卸载: " choice
+		if [ "$choice" == "0" ]; then
+			echo "👋 再见！"
+			exit 0
+		fi
+
+		local selected=$(echo "$App_Dir_List" | sed -n "${choice}p")
+		if [ -z "$selected" ]; then
+			echo "❌ 输入错误，请重新选择。"
+			sleep 1
+			continue
+		fi
+
+		if fungit_is_installed "$Install_Dir" "$selected"; then
+			echo "⚙️ 检测到已安装 $selected，选择操作："
+			echo "1) 更新"
+			echo "2) 卸载"
+			echo "0) 返回菜单"
+			read -p "请输入编号: " action
+
+			case "$action" in
+			1)
+				fungit_update_app "$Install_Dir" "$selected" "$App_Token" "$GitHub_Path" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch"
+				;;
+			2)
+				fungit_uninstall_app "$Install_Dir" "$selected"
+				;;
+			0)
+				continue
+				;;
+			*)
+				echo "❌ 无效选项"
+				;;
+			esac
+		else
+			fungit_download_app "$Install_Dir" "$selected" "$App_Token" "$GitHub_Path" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch"
+			fungit_install_app "$Install_Dir" "$selected"
+		fi
+
+		read -p "按任意键返回菜单..." _
+	done
+}
+
+# ======= 启动程序 =======
+
+# . ./fun_git.sh
+load_fun_git
+# . ./fun_deps.sh
+load_fun_deps
+
+fundeps_check_install_deps   # 安装依赖
+fundeps_check_install_docker # 安装 Docker
+
+# 指定要获取的目录（相对仓库根路径）
+App_Dir_List=$(fungit_get_dir_list "$GitHub_Path" "$App_Token" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch")
+
+# echo "🧩 调试：获取到的目录列表如下："
+# echo "$App_Dir_List"
+# sleep 5
+
+main_loop
