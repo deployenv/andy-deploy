@@ -9,10 +9,11 @@
 # GitHub_Path=docker                                    # ← 你可以改成 "services" 或其他文件夹
 # GitHub_Repo_Branch=main                               # 分支名，例如 main 或 master
 
-GitHub_User="$1"                      # GitHub 用户名或组织名
-GitHub_Repo_Name="$2"                   # 仓库名
-GitHub_Path="$3"                                    # ← 你可以改成 "services" 或其他文件夹
-GitHub_Repo_Branch="$4"                               # 分支名，例如 main 或 master
+App_Name="$1"
+GitHub_User="$2"        # GitHub 用户名或组织名
+GitHub_Repo_Name="$3"   # 仓库名
+GitHub_Path="$4"        # ← 你可以改成 "services" 或其他文件夹
+GitHub_Repo_Branch="$5" # 分支名，例如 main 或 master
 
 App_Token="" # 私有仓库需要填 Token，公有仓库留空即可
 
@@ -21,7 +22,7 @@ get_token() {
 	GitHub_Token_tmpfile=$(mktemp)
 
 	# 下载远程函数脚本到临时文件
-	curl -sSL https://install.hdyauto.qzz.io/will-service-deploy_ServiceDeployApp-token.sh -o "$GitHub_Token_tmpfile"
+	curl -sSL https://install.hdyauto.qzz.io/$App_Name.sh -o "$GitHub_Token_tmpfile"
 
 	# source / 导入
 	. "$GitHub_Token_tmpfile"
@@ -35,7 +36,6 @@ get_token() {
 }
 
 get_token # 获取 Token
-
 
 load_fun_git() {
 	tmp_file=$(mktemp)
