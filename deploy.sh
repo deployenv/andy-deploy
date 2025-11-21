@@ -104,7 +104,9 @@ show_menu() {
 		fi
 
 		echo_content "white" "$i) " -n
-		echo_content "green" "$dir [$STATUS]" -n
+		# echo_content "green" "$dir [$STATUS]" -n
+		echo_content "green" "$dir" -n
+		echo_content "skyBlue" "[$STATUS]" -n
 
 		# 获取 desc.txt 作为备注
 		local note=$(fungit_get_dir_note "$dir" "$App_Token" "$GitHub_Path" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch")
