@@ -103,9 +103,15 @@ show_menu() {
 			STATUS="⚪ 未安装"
 		fi
 
-		# echo "$i) $dir [$STATUS]"
 		echo_content "white" "$i) " -n
-		echo_content "green" "$dir [$STATUS]"
+		echo_content "green" "$dir [$STATUS]" -n
+
+		# 获取 desc.txt 作为备注
+		local note=$(fungit_get_dir_note "$dir" "$App_Token" "$GitHub_Path" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch")
+		# 如果备注太长，可截断，例如 50 个字符
+		[[ ${#note} -gt 50 ]] && note="${note:0:50}..."
+		echo_content "blue" " —— $note"
+
 		((i++))
 	done
 	echo ""
