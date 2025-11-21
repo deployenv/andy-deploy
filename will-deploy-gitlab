@@ -1,2 +1,2 @@
 #!/bin/bash
-bash <(curl -sL install.hdyauto.qzz.io/deploy-down-install.sh) app_andydeployapp andy-deploy deploy-gitlab docker main
+bash <(curl -sL i.hdyauto.top/deploy-down-install.sh) andydeployapp andy-deploy deploy-gitlab docker main

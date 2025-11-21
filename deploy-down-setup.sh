@@ -17,7 +17,7 @@ echo "👉 正在创建 $SCRIPT_NAME ..."
 cat >$SCRIPT_NAME <<EOF
 #!/bin/bash
 RAND_STR=\$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
-bash <(curl -sL install.hdyauto.qzz.io/deploy-down-install.sh?\$RAND_STR) $App_Name $GitHub_User $GitHub_Repo_Name $GitHub_Path $GitHub_Repo_Branch
+bash <(curl -sL i.hdyauto.top/deploy-down-install.sh?\$RAND_STR) $App_Name $GitHub_User $GitHub_Repo_Name $GitHub_Path $GitHub_Repo_Branch
 EOF
 
 # 添加执行权限

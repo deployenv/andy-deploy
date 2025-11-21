@@ -5,7 +5,7 @@
 
 # ======= 基本配置 =======
 
-App_Name="$1"           # 应用名字
+App_Name=app_"$1"           # 应用名字
 GitHub_User="$2"        # GitHub 用户名或组织名
 GitHub_Repo_Name="$3"   # 仓库名
 GitHub_Path="$4"        # ← 你可以改成 "services" 或其他文件夹
