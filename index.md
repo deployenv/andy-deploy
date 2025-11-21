@@ -17,11 +17,11 @@
   </button>
 </div>
 
-## will-deploy-gitlab
+## deploy-gitlab
 
 <div style="display:flex;align-items:center;gap:10px;">
-  <code>bash &lt;(curl -sL install.hdyauto.qzz.io/will-deploy-gitlab) linux_docker</code>
-  <button onclick="navigator.clipboard.writeText('bash <(curl -sL install.hdyauto.qzz.io/will-deploy-gitlab)')">
+  <code>bash &lt;(curl -sL install.hdyauto.qzz.io/deploy-gitlab) linux_docker</code>
+  <button onclick="navigator.clipboard.writeText('bash <(curl -sL install.hdyauto.qzz.io/deploy-gitlab)')">
     复制
   </button>
 </div>
