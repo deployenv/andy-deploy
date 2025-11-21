@@ -56,7 +56,7 @@ else
 	Install_Dir="/home/devops"
 fi
 
-echo "$Install_Dir"
+echo_content "red" "$Install_Dir"
 
 mkdir -p "$Install_Dir"
 
@@ -90,10 +90,10 @@ echo_content() {
 
 show_menu() {
 	clear
-	echo "=============================="
-	echo "🚀 远程应用安装菜单"
-	echo "仓库: ${GitHub_User}/${GitHub_Repo_Name} (${GitHub_Repo_Branch})"
-	echo "=============================="
+	echo_content "skyBlue" "=============================="
+	echo_content "red" "🚀 远程应用安装菜单"
+	echo_content "red" "仓库: ${GitHub_User}/${GitHub_Repo_Name} (${GitHub_Repo_Branch})"
+	echo_content "skyBlue" "=============================="
 
 	local i=1
 	for dir in $App_Dir_List; do
@@ -111,12 +111,15 @@ show_menu() {
 			STATUS="⚪ 未安装"
 		fi
 
-		echo "$i) $dir [$STATUS]"
+		# echo "$i) $dir [$STATUS]"
+		echo_content "white" "$i)"
+		echo_content "green" "$dir [$STATUS]"	
 		((i++))
 	done
 	echo ""
-	echo "0) 退出"
-	echo "------------------------------"
+	echo_content "white" "0)"
+	echo_content "green" "退出"	
+	echo_content "skyBlue" "------------------------------"
 }
 
 # ======= 主循环 =======
@@ -125,22 +128,22 @@ main_loop() {
 		show_menu
 		read -p "请输入编号以安装/卸载: " choice
 		if [ "$choice" == "0" ]; then
-			echo "👋 再见！"
+			echo_content "yellow" "👋 再见！"
 			exit 0
 		fi
 
 		local selected=$(echo "$App_Dir_List" | sed -n "${choice}p")
 		if [ -z "$selected" ]; then
-			echo "❌ 输入错误，请重新选择。"
+			echo_content "yellow" "❌ 输入错误，请重新选择。"
 			sleep 1
 			continue
 		fi
 
 		if fungit_is_installed "$Install_Dir" "$selected"; then
-			echo "⚙️ 检测到已安装 $selected，选择操作："
-			echo "1) 更新"
-			echo "2) 卸载"
-			echo "0) 返回菜单"
+			echo_content "red" "⚙️ 检测到已安装 $selected，选择操作："
+			echo_content "green" "1) 更新"
+			echo_content "green" "2) 卸载"
+			echo_content "green" "0) 返回菜单"
 			read -p "请输入编号: " action
 
 			case "$action" in
@@ -154,7 +157,7 @@ main_loop() {
 				continue
 				;;
 			*)
-				echo "❌ 无效选项"
+				echo_content "yellow" "❌ 无效选项"
 				;;
 			esac
 		else

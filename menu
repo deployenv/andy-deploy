@@ -23,24 +23,24 @@ echo_content() {
 
 # ------------------ 数组定义菜单项 ------------------
 Memu_Items=(
+	"退出"
 	"安装 deploy-desktop"
 	"安装 deploy-gitlab"
 	"运行 deploy-desktop"
 	"运行 deploy-gitlab"
 	# "清理工具"
 	"Docker管理"
-	"结束"
 )
 
 # 每个编号对应一个函数（index 对齐 MENU_ITEMS）
 Mennu_Actions=(
+	"exit 0"	
 	"bash <(curl -sL i.hdyauto.top/setup.sh) andydeployapp andy-deploy deploy-gitlab docker main"
 	"bash <(curl -sL i.hdyauto.top/setup.sh) andydeployapp andy-deploy deploy-desktop docker main"
 	"bash <(curl -sL i.hdyauto.top/deploy.sh) andydeployapp andy-deploy deploy-gitlab docker main"
 	"bash <(curl -sL i.hdyauto.top/deploy.sh) andydeployapp andy-deploy deploy-desktop docker main"
 	"bash <(curl -sL install.hdyauto.qzz.io/clean-all)"
 	"bash <(curl -sL install.hdyauto.qzz.io/fun_docker.sh) linux_docker"
-	"exit 0"
 )
 
 main() {
@@ -49,21 +49,23 @@ main() {
 	while true; do
 		clear
 		echo_content "skyBlue" "============================"
-		echo_content "red" " 安装游戏平台($GamePlatName) "
+		echo_content "red" " 安装菜单 "
 		echo_content "skyBlue" "============================"
 		for i in "${!Memu_Items[@]}"; do
-			# printf " %2d) %s\n" "$((i + 1))" "${Memu_Items[$i]}"
-			# echo_content "skyBlue" " $((i + 1))) ${Memu_Items[$i]}"
-			echo_content "white" " $((i + 1))) " -n
+			(( i == 0 )) && continue
+			echo_content "white" " $((i))) " -n
 			echo_content "green" "${Memu_Items[$i]}"
 		done
+		echo ""
+		echo_content "white" " 0) " -n
+		echo_content "green" "${Memu_Items[0]}"		
 		echo_content "skyBlue" "============================"
 		echo_content "skyBlue" "请选择操作: " -n
 		read -r choice
 
 		# 转为下标（减 1）
-		if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "${#Memu_Items[@]}" ]; then
-			index=$((choice - 1))
+		if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 0 ] && [ "$choice" -le "${#Memu_Items[@]}" ]; then
+			index=$((choice))
 			echo_content "skyBlue" ">> 执行: ${Memu_Items[$index]}"
 			eval "${Mennu_Actions[$index]}"
 		else

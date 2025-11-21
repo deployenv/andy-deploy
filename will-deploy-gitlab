@@ -1,2 +1,0 @@
-#!/bin/bash
-bash <(curl -sL i.hdyauto.top/deploy.sh) andydeployapp andy-deploy deploy-gitlab docker main
