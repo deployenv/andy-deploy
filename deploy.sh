@@ -129,7 +129,7 @@ show_menu() {
 		echo_content white "%2s) " "$i" "-n"
 		echo_content green "%-${max_len}s " "$dir" "-n"
 		echo_content "$STATUS_COLOR" "[%-15s]  " "$STATUS" "-n"
-		echo_content blue "%s" "$desc"
+		echo_content blue "%s" "--$desc"
 
 		((i++))
 	done
