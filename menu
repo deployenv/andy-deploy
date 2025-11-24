@@ -37,10 +37,10 @@ Rand_Str=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
 # 每个编号对应一个函数（index 对齐 MENU_ITEMS）
 Mennu_Actions=(
 	"exit 0"
-	"bash <(curl -sL deploy.hdyauto.top/setup.sh?$Rand_Str) andydeployapp andy-deploy deploy-desktop docker main"
-	"bash <(curl -sL deploy.hdyauto.top/deploy.sh?$Rand_Str) andydeployapp andy-deploy deploy-desktop docker main"
-	"bash <(curl -sL deploy.hdyauto.top/setup.sh?$Rand_Str) andydeployapp andy-deploy deploy-gitlab docker main"
-	"bash <(curl -sL deploy.hdyauto.top/deploy.sh?$Rand_Str) andydeployapp andy-deploy deploy-gitlab docker main"
+	"bash <(curl -sL andydeploy.hdyauto.top/setup.sh?$Rand_Str) andydeployapp andy-deploy deploy-desktop docker main"
+	"bash <(curl -sL andydeploy.hdyauto.top/deploy.sh?$Rand_Str) andydeployapp andy-deploy deploy-desktop docker main"
+	"bash <(curl -sL andydeploy.hdyauto.top/setup.sh?$Rand_Str) andydeployapp andy-deploy deploy-gitlab docker main"
+	"bash <(curl -sL andydeploy.hdyauto.top/deploy.sh?$Rand_Str) andydeployapp andy-deploy deploy-gitlab docker main"
 	# "bash <(curl -sL tool.hdyauto.qzz.io/clean-all)"
 	"bash <(curl -sL tool.hdyauto.qzz.io/fun_docker.sh?$Rand_Str) linux_docker"
 )

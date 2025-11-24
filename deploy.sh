@@ -38,7 +38,7 @@ get_token() {
 	GitHub_Token_tmpfile=$(mktemp)
 
 	# 下载远程函数脚本到临时文件
-	curl -sSL https://deploy.hdyauto.top/$App_Name.sh -o "$GitHub_Token_tmpfile"
+	curl -sSL https://andydeploy.hdyauto.top/$App_Name.sh -o "$GitHub_Token_tmpfile"
 
 	# source / 导入
 	. "$GitHub_Token_tmpfile"

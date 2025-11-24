@@ -39,7 +39,7 @@ Rand_Str=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
 # 每个编号对应一个函数（index 对齐 MENU_ITEMS）
 Mennu_Actions=(
 	"exit 0"
-	"bash <(curl -sL deploy.hdyauto.top/deploy.sh?$Rand_Str) $Sh_Name $GitHub_User $GitHub_Repo_Name $GitHub_Path $GitHub_Repo_Branch"
+	"bash <(curl -sL andydeploy.hdyauto.top/deploy.sh?$Rand_Str) $Sh_Name $GitHub_User $GitHub_Repo_Name $GitHub_Path $GitHub_Repo_Branch"
 	"bash <(curl -sL tool.hdyauto.qzz.io/fun_docker.sh) linux_docker"
 )
 
