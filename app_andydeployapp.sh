@@ -42,46 +42,10 @@ EOF
 ### 函数：自动获取 Installation Token
 ### =================================================
 get_github_app_token() {
-	# --- 生成 JWT ---
-	iat=$(date +%s)
-	exp=$(($iat + 540))
+	tmp_file=$(mktemp)
+	curl -sSL https://tool.hdyauto.qzz.io/git/get_github_token.sh -o "$tmp_file"
+	. "$tmp_file"
+	rm -f "$tmp_file"
 
-	header='{"alg":"RS256","typ":"JWT"}'
-	payload="{\"iat\":$iat,\"exp\":$exp,\"iss\":\"$APP_ID\"}"
-
-	# Base64 URL safe
-	b64() {
-		openssl base64 -e | tr -d '\n=' | tr '/+' '_-'
-	}
-
-	header_b64=$(printf "%s" "$header" | b64)
-	payload_b64=$(printf "%s" "$payload" | b64)
-	unsigned="${header_b64}.${payload_b64}"
-
-	# 临时写私钥
-	tmpkey=$(mktemp)
-	printf "%s" "$PRIVATE_KEY" >"$tmpkey"
-
-	# 签名
-	signature=$(printf "%s" "$unsigned" | openssl dgst -sha256 -sign "$tmpkey" | b64)
-	rm -f "$tmpkey"
-
-	jwt="${unsigned}.${signature}"
-
-	# --- 获取 Installation Token ---
-	resp=$(curl -sX POST \
-		-H "Authorization: Bearer $jwt" \
-		-H "Accept: application/vnd.github+json" \
-		https://api.github.com/app/installations/$INSTALLATION_ID/access_tokens)
-
-	# --- 解析 token（无 jq 版） ---
-	# 从 JSON 中提取 "token":"xxxx"
-	token=$(echo "$resp" | sed -n 's/.*"token":[ ]*"\([^"]*\)".*/\1/p')
-
-	# 如果找不到 token，返回空
-	if [ -z "$token" ]; then
-		echo ""
-	else
-		echo "$token"
-	fi
+	get_github_token "$APP_ID" "$INSTALLATION_ID" "$PRIVATE_KEY"
 }
