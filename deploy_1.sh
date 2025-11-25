@@ -23,11 +23,29 @@ get_token() {
 }
 
 get_token # 获取 Token
+# deploy() {
+# 	# 下载脚本内容到变量
+# 	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/github/deploy.sh)
+# 	# 使用 eval 执行脚本内容（等同于 source）
+# 	eval "$script_content" "$App_Name" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$App_Token" "$Install_Dir"
+# 	# token=$(get_github_token "$APP_ID" "$INSTALLATION_ID" "$PRIVATE_KEY")
 
-# 下载脚本内容到变量
-local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/github/deploy.sh)
-# 使用 eval 执行脚本内容（等同于 source）
-eval "$script_content" "$App_Name" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$App_Token" "$Install_Dir"
-# token=$(get_github_token "$APP_ID" "$INSTALLATION_ID" "$PRIVATE_KEY")
+# 	# ./deploy.sh "$App_Name" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$App_Token" "$Install_Dir"
+# }
 
-# ./deploy.sh "$App_Name" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$App_Token" "$Install_Dir"
+deploy() {
+    # 下载脚本到变量
+    local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/github/deploy.sh)
+
+    # 写入临时文件
+    local tmp_script=$(mktemp)
+    echo "$script_content" > "$tmp_script"
+    chmod +x "$tmp_script"
+
+    # 正确传参
+    "$tmp_script" "$App_Name" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$App_Token" "$Install_Dir"
+
+    rm -f "$tmp_script"
+}
+
+deploy
