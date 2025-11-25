@@ -45,37 +45,36 @@ echo_content() {
 }
 
 get_token() {
-	# 创建临时文件
-	GitHub_Token_tmpfile=$(mktemp)
-
-	# 下载远程函数脚本到临时文件
-	curl -sSL https://andydeploy.hdyauto.top/$App_Name.sh -o "$GitHub_Token_tmpfile"
-
-	# source / 导入
-	. "$GitHub_Token_tmpfile"
-
-	# 删除临时文件
-	rm -f "$GitHub_Token_tmpfile"
-
+	# 下载脚本内容到变量
+	local script_content=$(curl -sSL https://andydeploy.hdyauto.top/$App_Name.sh)
+	# 使用 eval 执行脚本内容（等同于 source）
+	eval "$script_content"
 	# 调用函数
 	App_Token=$(get_github_app_token)
-	# echo $App_Token
 }
 
 get_token # 获取 Token
 
 load_fun_git() {
-	tmp_file=$(mktemp)
-	curl -sSL https://tool.hdyauto.qzz.io/fun_git.sh -o "$tmp_file"
-	. "$tmp_file"
-	rm -f "$tmp_file"
+	# tmp_file=$(mktemp)
+	# curl -sSL https://tool.hdyauto.qzz.io/fun_git.sh -o "$tmp_file"
+	# . "$tmp_file"
+	# rm -f "$tmp_file"
+		# 下载脚本内容到变量
+	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/fun_git.sh)
+	# 使用 eval 执行脚本内容（等同于 source）
+	eval "$script_content"
 }
 
 load_fun_deps() {
-	tmp_file=$(mktemp)
-	curl -sSL https://tool.hdyauto.qzz.io/fun_deps.sh -o "$tmp_file"
-	. "$tmp_file"
-	rm -f "$tmp_file"
+	# tmp_file=$(mktemp)
+	# curl -sSL https://tool.hdyauto.qzz.io/fun_deps.sh -o "$tmp_file"
+	# . "$tmp_file"
+	# rm -f "$tmp_file"
+		# 下载脚本内容到变量
+	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/fun_deps.sh)
+	# 使用 eval 执行脚本内容（等同于 source）
+	eval "$script_content"
 }
 
 Install_Dir="/home/deploy"
