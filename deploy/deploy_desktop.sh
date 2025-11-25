@@ -47,7 +47,6 @@ remote_deploy() {
 		echo "❌ 远程脚本中没有定义 deploy"
 	fi
 
-
 	rm -f "$tmp_script"
 
 }

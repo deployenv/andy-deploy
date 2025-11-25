@@ -1,11 +1,11 @@
 #!/bin/bash
 
-Sh_Name=andydeployapp           # sh 名字
-GitHub_User=andy-deploy         # GitHub 用户名或组织名
+Sh_Name=andydeployapp          # sh 名字
+GitHub_User=andy-deploy        # GitHub 用户名或组织名
 GitHub_Repo_Name=deploy-gitlab # 仓库名
-GitHub_Path=docker              # 仓库子目录
-GitHub_Repo_Branch=main         # 分支名，例如 main 或 master
-Install_Dir=/home/deploy        # 安装名字
+GitHub_Path=docker             # 仓库子目录
+GitHub_Repo_Branch=main        # 分支名，例如 main 或 master
+Install_Dir=/home/deploy       # 安装名字
 
 # ======= 安装目录处理 =======
 # 如果 Install_Dir 是绝对路径且不可写，改成用户目录
@@ -46,7 +46,6 @@ remote_deploy() {
 	else
 		echo "❌ 远程脚本中没有定义 deploy"
 	fi
-
 
 	rm -f "$tmp_script"
 
