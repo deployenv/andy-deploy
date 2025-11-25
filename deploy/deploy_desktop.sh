@@ -53,7 +53,6 @@ remote_deploy() {
 }
 remote_deploy
 
-# ./deploy.sh "$Sh_Name" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$Install_Dir"
 # --------------- 			 --------------- #
 
 # # --------------- 本地测试调用 --------------- #
