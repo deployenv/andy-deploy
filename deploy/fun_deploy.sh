@@ -24,7 +24,7 @@ setup() {
 	cat >$Setup_Name <<EOF
 #!/bin/bash
 Rand_Str=\$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
-bash <(curl -sL andydeploy.hdyauto.top/setup-menu.sh?\$Rand_Str) $Sh_Name $GitHub_User $GitHub_Repo_Name $GitHub_Path $GitHub_Repo_Branch
+bash <(curl -sL andydeploy.hdyauto.top/menu/setup?\$Rand_Str) $Sh_Name $GitHub_User $GitHub_Repo_Name $GitHub_Path $GitHub_Repo_Branch
 EOF
 
 	# 添加执行权限

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # 导入函数
-. ./app/andydeployapp.sh
+. ./andydeployapp.sh
 
 # 获取 token
 token=$(get_github_app_token)
