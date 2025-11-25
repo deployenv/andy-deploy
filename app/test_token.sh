@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # 导入函数
 . ./andydeployapp.sh
