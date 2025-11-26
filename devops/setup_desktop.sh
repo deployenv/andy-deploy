@@ -12,7 +12,7 @@ remote_setup() {
 
 	Rand_Str=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
 	# 下载脚本到变量
-	local script_content=$(curl -sSL andydeploy.hdyauto.top/deploy/fun_deploy.sh?$Rand_Str)
+	local script_content=$(curl -sSL andydeploy.hdyauto.top/devops/fun_devops.sh?$Rand_Str)
 
 	# 写入临时文件
 	local tmp_script=$(mktemp)
@@ -46,7 +46,7 @@ remote_setup
 # local_setup() {
 
 # 	# 导入脚本到当前 shell
-# 	source ./fun_deploy.sh
+# 	source ./fun_devops.sh
 
 # 	# 假设远程脚本里定义了函数叫 setup
 # 	# 现在就可以直接调用：
