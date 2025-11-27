@@ -48,7 +48,7 @@ deploy() {
 	app_token="" # 私有仓库需要填 Token，公有仓库留空即可
 
 	# 下载脚本到变量
-	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/github/deploy_menu.sh)
+	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/github/devops_menu.sh)
 
 	# 写入临时文件
 	local tmp_script=$(mktemp)
