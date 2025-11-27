@@ -42,8 +42,9 @@ echo_content() {
 # ------------------ 数组定义菜单项 ------------------
 Memu_Items=(
 	"退出"
-	"部署"
+	"部署 ${GitHub_Path}"
 	"Docker工具"
+	"Postman工具"	
 )
 
 Rand_Str=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
@@ -85,6 +86,7 @@ Mennu_Actions=(
 	"exit 0"
 	"remote_deploy"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh) linux_docker"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_postman.sh) linux_postman"
 )
 
 main() {

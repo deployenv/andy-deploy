@@ -28,8 +28,8 @@ Memu_Items=(
 	"部署 devops-desktop"
 	"安装 devops-gitlab"
 	"部署 devops-gitlab"
-	# "清理工具"
 	"Docker工具"
+	"Postman工具"	
 )
 
 Rand_Str=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
@@ -41,8 +41,7 @@ Mennu_Actions=(
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops/devops_desktop.sh?$Rand_Str)"
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops/setup_gitlab.sh?$Rand_Str)"
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops/devops_gitlab.sh?$Rand_Str)"
-	# "bash <(curl -sL tool.hdyauto.qzz.io/clean-all)"
-	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh?$Rand_Str) linux_docker"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh?$Rand_Str) linux_podman"
 )
 
 main() {
