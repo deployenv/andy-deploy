@@ -86,7 +86,7 @@ Mennu_Actions=(
 	"exit 0"
 	"remote_deploy"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh) linux_docker"
-	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh) linux_postman"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh) linux_podman"
 )
 
 main() {
