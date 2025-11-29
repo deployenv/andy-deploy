@@ -5,7 +5,7 @@ GitHub_User=andy-devops        # GitHub 用户名或组织名
 GitHub_Repo_Name=devops-gitlab # 仓库名
 GitHub_Path=podman             # 仓库子目录
 GitHub_Repo_Branch=main        # 分支名，例如 main 或 master
-Install_Dir=/home/devops       # 安装名字
+Install_Dir=/home/wkdevops     # 安装名字
 
 # ======= 安装目录处理 =======
 # 如果 Install_Dir 是绝对路径且不可写，改成用户目录
@@ -17,6 +17,8 @@ if [[ "$Install_Dir" == /* ]]; then
 else
 	Install_Dir="$HOME/$Install_Dir"
 fi
+
+echo "使用路径: $Install_Dir"
 
 # --------------- 远程测试调用 --------------- #
 remote_deploy() {
