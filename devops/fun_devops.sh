@@ -18,7 +18,7 @@ setup() {
 	gitHub_repo_name="$3"   # 仓库名
 	gitHub_path="$4"        # 仓库子目录
 	gitHub_repo_branch="$5" # 分支名，例如 main 或 master
-	install_dir="$6"        # 安装目录	
+	install_dir="$6"        # 安装目录
 	setup_file_name="$7"    # "andy.sh"
 
 	echo "👉 正在创建 $setup_file_name ..."

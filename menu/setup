@@ -7,7 +7,7 @@ GitHub_User="$2"        # GitHub 用户名或组织名
 GitHub_Repo_Name="$3"   # 仓库名
 GitHub_Path="$4"        # 仓库子目录
 GitHub_Repo_Branch="$5" # 分支名，例如 main 或 master
-Install_Dir="$6"        # 安装名字
+Install_Dir="$6"        # 安装目录
 
 # ======= 安装目录处理 =======
 # 如果 Install_Dir 是绝对路径且不可写，改成用户目录
@@ -19,6 +19,8 @@ if [[ "$Install_Dir" == /* ]]; then
 else
 	Install_Dir="$HOME/$Install_Dir"
 fi
+
+echo "🏠 安装目录: $Install_Dir"
 
 echo_content() {
 	local tmp_color="$1" # 颜色
@@ -44,7 +46,7 @@ Memu_Items=(
 	"退出"
 	"部署 ${GitHub_Path}"
 	"Docker工具"
-	"Postman工具"	
+	"Postman工具"
 )
 
 Rand_Str=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)

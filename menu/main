@@ -28,7 +28,6 @@ Memu_Items=(
 	"部署 devops-desktop"
 	"安装 devops-gitlab"
 	"部署 devops-gitlab"
-	"Docker工具"
 	"Postman工具"	
 )
 
