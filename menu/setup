@@ -45,6 +45,8 @@ echo_content() {
 Memu_Items=(
 	"退出"
 	"部署 ${GitHub_Path}"
+	"安装 Docker"
+	"安装 Podman"	
 	"Docker工具"
 	"Postman工具"
 )
@@ -87,8 +89,10 @@ remote_deploy() {
 Mennu_Actions=(
 	"exit 0"
 	"remote_deploy"
-	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh) linux_docker"
-	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh) linux_podman"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_deps.sh?$Rand_Str) fundeps_check_install_docker"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_deps.sh?$Rand_Str) fundeps_check_install_podman"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh?$Rand_Str) linux_docker"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh?$Rand_Str) linux_podman"
 )
 
 main() {
