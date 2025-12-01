@@ -5,8 +5,22 @@ GitHub_User=andy-devops        # GitHub 用户名或组织名
 GitHub_Repo_Name=devops-gitlab # 仓库名
 GitHub_Path=pod                # 仓库子目录
 GitHub_Repo_Branch=main        # 分支名，例如 main 或 master
-Install_Dir=/home/wkgitlab     # 安装目录
 Setup_Name="andy.sh"           # 安装名字
+
+load_fun_common() {
+	tmp_file=$(mktemp)
+	curl -sSL https://tool.hdyauto.qzz.io/common/common?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16) -o "$tmp_file"
+	. "$tmp_file"
+	rm -f "$tmp_file"
+}
+
+load_fun_common
+
+# . ../../devopstool/common/common
+
+Install_Dir=$(prepare_install_dir "/home/wkgitlab") # 安装目录
+
+echo "最终安装目录是：$Install_Dir"
 
 # --------------- 远程测试调用 --------------- #
 remote_setup() {

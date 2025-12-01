@@ -5,19 +5,21 @@ GitHub_User=andy-devops         # GitHub 用户名或组织名
 GitHub_Repo_Name=devops-desktop # 仓库名
 GitHub_Path=pod                 # 仓库子目录
 GitHub_Repo_Branch=main         # 分支名，例如 main 或 master
-Install_Dir=/home/wkdesktop     # 安装目录
-# # ======= 安装目录处理 =======
-# # 如果 Install_Dir 是绝对路径且不可写，改成用户目录
-# if [[ "$Install_Dir" == /* ]]; then
-# 	# 如果无法写入根目录
-# 	if [ ! -w "$Install_Dir" ]; then
-# 		Install_Dir="$HOME/$(basename "$Install_Dir")"
-# 	fi
-# else
-# 	Install_Dir="$HOME/$Install_Dir"
-# fi
 
-echo "使用路径: $Install_Dir"
+load_fun_common() {
+	tmp_file=$(mktemp)
+	curl -sSL https://tool.hdyauto.qzz.io/common/common?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16) -o "$tmp_file"
+	. "$tmp_file"
+	rm -f "$tmp_file"
+}
+
+load_fun_common
+
+# . ../../devopstool/common/common
+
+Install_Dir=$(prepare_install_dir "/home/wkdesktop") # 安装目录
+
+echo "最终安装目录是：$Install_Dir"
 
 # --------------- 远程测试调用 --------------- #
 remote_deploy() {
@@ -51,7 +53,7 @@ remote_deploy() {
 	rm -f "$tmp_script"
 
 }
-remote_deploy
+# remote_deploy
 
 # --------------- 			 --------------- #
 
