@@ -125,15 +125,16 @@ local_setup() {
 #--------------- 			 --------------- #
 
 devops_desktop() {
+	echo "开始部署 DevOps 桌面版..."
 	sh_name=andydevopsapp   # sh 名字
 	github_user=andy-devops # GitHub 用户名或组织名
 	github_repo_name=devops-desktop                      # 仓库名
 	github_repo_branch=main                              # 分支名，例如 main 或 master
 	github_path=pod                                      # 仓库子目录
 	install_dir=$(prepare_install_dir "/home/wkdesktop") # 安装目录
-	echo "最终安装目录是：$install_dir"
 
-	remote_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
+	# remote_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
+	local_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
 }
 
 setup_desktop() {
@@ -147,6 +148,7 @@ setup_desktop() {
 	setup_url="devopsandy.hdyauto.qzz.io/setup"
 
 	remote_setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
+	# local_setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
 }
 
 devops_gitlab() {
@@ -156,9 +158,9 @@ devops_gitlab() {
 	github_repo_branch=main                             # 分支名，例如 main 或 master
 	github_path=pod                                     # 仓库子目录
 	install_dir=$(prepare_install_dir "/home/wkgitlab") # 安装目录
-	echo "最终安装目录是：$install_dir"
 
 	remote_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
+	# local_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
 }
 
 setup_gitlab() {
@@ -172,4 +174,5 @@ setup_gitlab() {
 	setup_url="devopsandy.hdyauto.qzz.io/setup"
 
 	remote_setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
+	# local_setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"	
 }
