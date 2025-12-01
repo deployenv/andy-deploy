@@ -9,29 +9,11 @@ GitHub_Path="$4"        # 仓库子目录
 GitHub_Repo_Branch="$5" # 分支名，例如 main 或 master
 Install_Dir="$6"        # 安装目录
 
-# # ------------------ 定义颜色输出函数 ------------------
-# echo_content() {
-# 	local tmp_color="$1" # 颜色
-# 	local tmp_text="$2"  #  文本
-# 	local tmp_opt="$3"   # 第三个参数用于传 -n
 
-# 	local tmp_echo_type="echo -e"
-# 	[ "$tmp_opt" = "-n" ] && tmp_echo_type="echo -en"
-
-# 	case "$tmp_color" in
-# 	"red") $tmp_echo_type "\033[31m${tmp_text}\033[0m" ;;
-# 	"green") $tmp_echo_type "\033[32m${tmp_text}\033[0m" ;;
-# 	"yellow") $tmp_echo_type "\033[33m${tmp_text}\033[0m" ;;
-# 	"blue") $tmp_echo_type "\033[34m${tmp_text}\033[0m" ;;
-# 	"purple") $tmp_echo_type "\033[35m${tmp_text}\033[0m" ;;
-# 	"skyBlue") $tmp_echo_type "\033[36m${tmp_text}\033[0m" ;;
-# 	"white") $tmp_echo_type "\033[37m${tmp_text}\033[0m" ;;
-# 	esac
-# }
-echo "最终安装目录是：$Install_Dir"
+# echo "最终安装目录是：$Install_Dir"
 
 # ------------------ 数组定义菜单项 ------------------
-Memu_Items=(
+Menu_Items=(
 	"退出"
 	"安装 Docker"
 	"安装 Podman"
@@ -41,7 +23,7 @@ Memu_Items=(
 )
 
 # 每个编号对应一个函数（index 对齐 MENU_ITEMS）
-Mennu_Actions=(
+Menu_Actions=(
 	"exit 0"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_deps.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) fundeps_check_install_docker"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_deps.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) fundeps_check_install_podman"
@@ -50,21 +32,37 @@ Mennu_Actions=(
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) remote_deploy "$Token_Sh_Url" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch" "$GitHub_Path" "$Install_Dir" "
 )
 
-# ------------------ 数组转换 JSON（最安全）------------------
-Menu_Items_Json=$(printf '%s\n' "${Memu_Items[@]}" | jq -R . | jq -s .)
-Menu_Actions_Json=$(printf '%s\n' "${Mennu_Actions[@]}" | jq -R . | jq -s .)
+# ------------------ 数组 → JSON ------------------
+Menu_Items_Json=$(printf '%s\n' "${Menu_Items[@]}" | jq -R . | jq -s .)
+Menu_Actions_Json=$(printf '%s\n' "${Menu_Actions[@]}" | jq -R . | jq -s .)
 
-
-# # 下载脚本到变量
-# local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/menu/setup?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))
-# # 写入临时文件
-# local tmp_script=$(mktemp)
+# ------------------ 调用 setup（强制用 bash） ------------------
+# 下载脚本到变量
+local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/menu/setup?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))
+# 写入临时文件
+local tmp_script=$(mktemp)
 # echo "$script_content" >"$tmp_script"
-# chmod +x "$tmp_script"
-# # 正确传参
-# "$tmp_script" "$Token_Sh_Url" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$app_token" "$install_dir" "$Memu_Items" "$Mennu_Actions"
-# rm -f "$tmp_script"
+chmod +x "$tmp_script"
+# 正确传参
+"$tmp_script" \
+	"$Token_Sh_Url" \
+	"$GitHub_User" \
+	"$GitHub_Repo_Name" \
+	"$GitHub_Path" \
+	"$GitHub_Repo_Branch" \
+	"$Install_Dir" \
+	"$Menu_Items_Json" \
+	"$Menu_Actions_Json"
 
+rm -f "$tmp_script"
 
-../devopstool/menu/setup "$Token_Sh_Url" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$Install_Dir" "$Memu_Items" "$Mennu_Actions"
-
+# # ------------------ 调用 setup（强制用 bash） ------------------
+# bash ../devopstool/menu/setup \
+# 	"$Token_Sh_Url" \
+# 	"$GitHub_User" \
+# 	"$GitHub_Repo_Name" \
+# 	"$GitHub_Path" \
+# 	"$GitHub_Repo_Branch" \
+# 	"$Install_Dir" \
+# 	"$Menu_Items_Json" \
+# 	"$Menu_Actions_Json"
