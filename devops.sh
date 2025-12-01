@@ -115,7 +115,7 @@ local_setup() {
 	source ../devopstool/common/fun_devops.sh
 
 	if declare -f setup >/dev/null 2>&1; then
-		setup "" "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_name" "$setup_url"
+		setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_name" "$setup_url"
 	else
 		echo "❌ 远程脚本中没有定义 setup"
 	fi
