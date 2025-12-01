@@ -5,7 +5,8 @@ GitHub_User=andy-devops         # GitHub 用户名或组织名
 GitHub_Repo_Name=devops-desktop # 仓库名
 GitHub_Path=pod                 # 仓库子目录
 GitHub_Repo_Branch=main         # 分支名，例如 main 或 master
-Install_Dir=/home/wkdevops      # 安装目录
+# Install_Dir=/home/wkdevops      # 安装目录
+Install_Dir=./wkdesktop # 安装目录
 Setup_Name="andy.sh"            # 安装名字
 
 # --------------- 远程测试调用 --------------- #

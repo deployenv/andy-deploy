@@ -9,16 +9,16 @@ GitHub_Path="$4"        # 仓库子目录
 GitHub_Repo_Branch="$5" # 分支名，例如 main 或 master
 Install_Dir="$6"        # 安装目录
 
-# ======= 安装目录处理 =======
-# 如果 Install_Dir 是绝对路径且不可写，改成用户目录
-if [[ "$Install_Dir" == /* ]]; then
-	# 如果无法写入根目录
-	if [ ! -w "$Install_Dir" ]; then
-		Install_Dir="$HOME/$(basename "$Install_Dir")"
-	fi
-else
-	Install_Dir="$HOME/$Install_Dir"
-fi
+# # ======= 安装目录处理 =======
+# # 如果 Install_Dir 是绝对路径且不可写，改成用户目录
+# if [[ "$Install_Dir" == /* ]]; then
+# 	# 如果无法写入根目录
+# 	if [ ! -w "$Install_Dir" ]; then
+# 		Install_Dir="$HOME/$(basename "$Install_Dir")"
+# 	fi
+# else
+# 	Install_Dir="$HOME/$Install_Dir"
+# fi
 
 echo "🏠 安装目录: $Install_Dir"
 
