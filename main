@@ -28,8 +28,10 @@ Memu_Items=(
 	"安装 gitlab"
 	"部署 desktop"
 	"部署 gitlab"
-	"工具 Docker"
-	"工具 Postman"
+	"安装 Docker"
+	"安装 Podman"
+	"管理 Docker"
+	"管理 Podman"
 )
 
 # 每个编号对应一个函数（index 对齐 MENU_ITEMS）
@@ -39,6 +41,8 @@ Mennu_Actions=(
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) setup_gitlab"
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) devops_desktop"
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) devops_gitlab"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_deps.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) fundeps_check_install_docker"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_deps.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) fundeps_check_install_podman"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) linux_docker"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) linux_podman"
 )

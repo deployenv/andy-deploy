@@ -34,8 +34,8 @@ Memu_Items=(
 	"退出"
 	"安装 Docker"
 	"安装 Podman"
-	"工具 Docker"
-	"工具 Postman"
+	"管理 Docker"
+	"管理 Podman"
 	"部署 ${GitHub_Path}"
 )
 
