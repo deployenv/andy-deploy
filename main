@@ -54,5 +54,5 @@ local_main() {
 	bash ../devopstool/menu/main "$Menu_Items_Json" "$Menu_Actions_Json"
 }
 
-remote_main
-# local_main
+# remote_main
+local_main
