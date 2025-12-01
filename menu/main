@@ -24,10 +24,10 @@ echo_content() {
 # ------------------ 数组定义菜单项 ------------------
 Memu_Items=(
 	"退出"
-	"安装 devops-desktop"
-	"安装 devops-gitlab"
-	"部署 devops-desktop"
-	"部署 devops-gitlab"
+	"安装 desktop"
+	"安装 gitlab"
+	"部署 desktop"
+	"部署 gitlab"
 	"工具 Docker"
 	"工具 Postman"	
 )
