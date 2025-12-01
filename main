@@ -5,10 +5,10 @@
 # ------------------ 数组定义菜单项 ------------------
 Menu_Items=(
 	"退出"
-	"安装 desktop"
-	"安装 gitlab"
-	"部署 desktop"
-	"部署 gitlab"
+	"【安装】 desktop"
+	"【安装】 gitlab"
+	"（部署） desktop"
+	"（部署） gitlab"
 	"安装 Docker"
 	"安装 Podman"
 	"管理 Docker"
