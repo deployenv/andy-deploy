@@ -168,8 +168,8 @@ setup_gitlab() {
 	local setup_file_name="andy.sh"                                # 安装文件名
 	local setup_url="devopsandy.hdyauto.qzz.io/setup"
 
-	remote_setup "$token_sh_url" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
-	# local_setup "$token_sh_url" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
+	# remote_setup "$token_sh_url" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
+	local_setup "$token_sh_url" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
 }
 
 "$@"

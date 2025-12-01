@@ -9,25 +9,26 @@ GitHub_Path="$4"        # 仓库子目录
 GitHub_Repo_Branch="$5" # 分支名，例如 main 或 master
 Install_Dir="$6"        # 安装目录
 
-# ------------------ 定义颜色输出函数 ------------------
-echo_content() {
-	local tmp_color="$1" # 颜色
-	local tmp_text="$2"  #  文本
-	local tmp_opt="$3"   # 第三个参数用于传 -n
+# # ------------------ 定义颜色输出函数 ------------------
+# echo_content() {
+# 	local tmp_color="$1" # 颜色
+# 	local tmp_text="$2"  #  文本
+# 	local tmp_opt="$3"   # 第三个参数用于传 -n
 
-	local tmp_echo_type="echo -e"
-	[ "$tmp_opt" = "-n" ] && tmp_echo_type="echo -en"
+# 	local tmp_echo_type="echo -e"
+# 	[ "$tmp_opt" = "-n" ] && tmp_echo_type="echo -en"
 
-	case "$tmp_color" in
-	"red") $tmp_echo_type "\033[31m${tmp_text}\033[0m" ;;
-	"green") $tmp_echo_type "\033[32m${tmp_text}\033[0m" ;;
-	"yellow") $tmp_echo_type "\033[33m${tmp_text}\033[0m" ;;
-	"blue") $tmp_echo_type "\033[34m${tmp_text}\033[0m" ;;
-	"purple") $tmp_echo_type "\033[35m${tmp_text}\033[0m" ;;
-	"skyBlue") $tmp_echo_type "\033[36m${tmp_text}\033[0m" ;;
-	"white") $tmp_echo_type "\033[37m${tmp_text}\033[0m" ;;
-	esac
-}
+# 	case "$tmp_color" in
+# 	"red") $tmp_echo_type "\033[31m${tmp_text}\033[0m" ;;
+# 	"green") $tmp_echo_type "\033[32m${tmp_text}\033[0m" ;;
+# 	"yellow") $tmp_echo_type "\033[33m${tmp_text}\033[0m" ;;
+# 	"blue") $tmp_echo_type "\033[34m${tmp_text}\033[0m" ;;
+# 	"purple") $tmp_echo_type "\033[35m${tmp_text}\033[0m" ;;
+# 	"skyBlue") $tmp_echo_type "\033[36m${tmp_text}\033[0m" ;;
+# 	"white") $tmp_echo_type "\033[37m${tmp_text}\033[0m" ;;
+# 	esac
+# }
+echo "最终安装目录是：$Install_Dir"
 
 # ------------------ 数组定义菜单项 ------------------
 Memu_Items=(
@@ -48,42 +49,22 @@ Mennu_Actions=(
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) linux_podman"
 	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) remote_deploy "$Token_Sh_Url" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch" "$GitHub_Path" "$Install_Dir" "
 )
-# ------------------ 主函数 ------------------
-main() {
 
-	# ------------------ 主循环 ------------------
-	while true; do
-		clear
-		echo_content "skyBlue" "============================"
-		echo_content "red" "🚀 安装选择"
-		echo_content red "仓库: ${GitHub_User}/${GitHub_Repo_Name}/${GitHub_Path} (${GitHub_Repo_Branch})"
-		echo_content "skyBlue" "============================"
-		for i in "${!Memu_Items[@]}"; do
-			((i == 0)) && continue
-			echo_content "white" " $((i))) " -n
-			echo_content "green" "${Memu_Items[$i]}"
-		done
-		echo ""
-		echo_content "white" " 0) " -n
-		echo_content "green" "${Memu_Items[0]}"
-		echo_content "skyBlue" "============================"
-		echo_content "skyBlue" "请选择操作: " -n
-		read -r choice
+# ------------------ 数组转换 JSON（最安全）------------------
+Menu_Items_Json=$(printf '%s\n' "${Memu_Items[@]}" | jq -R . | jq -s .)
+Menu_Actions_Json=$(printf '%s\n' "${Mennu_Actions[@]}" | jq -R . | jq -s .)
 
-		# 转为下标（减 1）
-		if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 0 ] && [ "$choice" -le "${#Memu_Items[@]}" ]; then
-			index=$((choice))
-			echo_content "skyBlue" ">> 执行: ${Memu_Items[$index]}"
-			eval "${Mennu_Actions[$index]}"
-		else
-			echo_content "skyBlue" "无效选择。"
-		fi
 
-		echo_content "yellow" "按任意键继续..." -n
-		read -n 1 -s -r
-		echo # 输入后换行（可选）
-	done
-}
+# # 下载脚本到变量
+# local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/menu/setup?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))
+# # 写入临时文件
+# local tmp_script=$(mktemp)
+# echo "$script_content" >"$tmp_script"
+# chmod +x "$tmp_script"
+# # 正确传参
+# "$tmp_script" "$Token_Sh_Url" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$app_token" "$install_dir" "$Memu_Items" "$Mennu_Actions"
+# rm -f "$tmp_script"
 
-# ======= 启动程序 =======
-main
+
+../devopstool/menu/setup "$Token_Sh_Url" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Path" "$GitHub_Repo_Branch" "$Install_Dir" "$Memu_Items" "$Mennu_Actions"
+
