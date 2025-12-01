@@ -48,8 +48,9 @@ deploy() {
 
 	app_token="" # 私有仓库需要填 Token，公有仓库留空即可
 
+	Rand_Str=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)
 	# 下载脚本到变量
-	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/github/devops_menu.sh)
+	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/github/devops_menu.sh?$Rand_Str)
 
 	# 写入临时文件
 	local tmp_script=$(mktemp)
