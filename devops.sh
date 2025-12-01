@@ -144,7 +144,7 @@ setup_desktop() {
 	github_repo_branch=main                              # 分支名，例如 main 或 master
 	install_dir=$(prepare_install_dir "/home/wkdesktop") # 安装目录
 	setup_file_name="andy.sh"                            # 安装文件名
-	setup_url="devopsandy.hdyauto.qzz.io/menu/setup"
+	setup_url="devopsandy.hdyauto.qzz.io/setup"
 
 	remote_setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
 }
@@ -169,7 +169,7 @@ setup_gitlab() {
 	github_repo_branch=main                             # 分支名，例如 main 或 master
 	install_dir=$(prepare_install_dir "/home/wkgitlab") # 安装目录
 	setup_file_name="andy.sh"                           # 安装文件名
-	setup_url="devopsandy.hdyauto.qzz.io/menu/setup"
+	setup_url="devopsandy.hdyauto.qzz.io/setup"
 
 	remote_setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_file_name" "$setup_url"
 }
