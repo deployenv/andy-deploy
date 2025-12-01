@@ -23,7 +23,7 @@ remote_deploy() {
 	echo "最终安装目录是：$install_dir"
 
 	# 下载脚本到变量
-	local script_content=$(curl -sSL tool.hdyauto.qzz.io/common/fun_devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))
+	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/common/fun_devops?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))
 
 	# 写入临时文件
 	local tmp_script=$(mktemp)
@@ -54,7 +54,7 @@ local_deploy() {
 	echo "最终安装目录是：$install_dir"
 
 	# 导入脚本到当前 shell
-	source ../devopstool/common/fun_devops.sh
+	source ../devopstool/common/fun_devops
 
 	# 假设远程脚本里定义了函数叫 deploy
 	# 现在就可以直接调用：
@@ -79,7 +79,7 @@ remote_setup() {
 	echo "最终安装目录是：$install_dir"
 
 	# 下载脚本到变量
-	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/common/fun_devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))
+	local script_content=$(curl -sSL https://tool.hdyauto.qzz.io/common/fun_devops?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))
 
 	# 写入临时文件
 	local tmp_script=$(mktemp)
@@ -112,7 +112,7 @@ local_setup() {
 	echo "最终安装目录是：$install_dir"
 
 	# 导入脚本到当前 shell
-	source ../devopstool/common/fun_devops.sh
+	source ../devopstool/common/fun_devops
 
 	if declare -f setup >/dev/null 2>&1; then
 		setup "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir" "$setup_name" "$setup_url"
@@ -131,9 +131,8 @@ devops_desktop() {
 	local github_repo_branch=main                              # 分支名，例如 main 或 master
 	local github_path=pod                                      # 仓库子目录
 	local install_dir=$(prepare_install_dir "/home/wkdesktop") # 安装目录
-# https://devopsandy.hdyauto.qzz.io/app/$app_name.sh
-	# remote_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
-	local_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
+	remote_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
+	# local_deploy "$sh_name" "$github_user" "$github_repo_name" "$github_repo_branch" "$github_path" "$install_dir"
 }
 
 setup_desktop() {
