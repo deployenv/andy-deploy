@@ -2,19 +2,14 @@
 
 ###################################################
 
-# Sh_Name="$1"            # sh 名字
-# GitHub_User="$2"        # GitHub 用户名或组织名
-# GitHub_Repo_Name="$3"   # 仓库名
-# GitHub_Path="$4"        # 仓库子目录
-# GitHub_Repo_Branch="$5" # 分支名，例如 main 或 master
-# Install_Dir="$6"        # 安装目录
-
-# Sh_Name="$1"            # sh 名字
-# GitHub_User="$2"        # GitHub 用户名或组织名
+Sh_Name="$1"            # sh 名字
+GitHub_User="$2"        # GitHub 用户名或组织名
 GitHub_Repo_Name="$3"   # 仓库名
 GitHub_Path="$4"        # 仓库子目录
 GitHub_Repo_Branch="$5" # 分支名，例如 main 或 master
 Install_Dir="$6"        # 安装目录
+
+
 
 
 # ------------------ 定义颜色输出函数 ------------------
@@ -54,7 +49,7 @@ Mennu_Actions=(
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_deps.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) fundeps_check_install_podman"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) linux_docker"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) linux_podman"
-	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) remote_deploy "$GitHub_Repo_Name" "$GitHub_Repo_Branch" "$GitHub_Path" "$Install_Dir" "$sh_name"
+	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) remote_deploy "$Sh_Name" "$GitHub_User" "$GitHub_Repo_Name" "$GitHub_Repo_Branch" "$GitHub_Path" "$Install_Dir" "
 )
 # ------------------ 主函数 ------------------
 main() {
@@ -64,7 +59,7 @@ main() {
 		clear
 		echo_content "skyBlue" "============================"
 		echo_content "red" "🚀 安装选择"
-		echo_content red "仓库: ${GitHub_User}/${GitHub_Repo_Name}/${GitHub_Path} (${GitHub_Repo_Branch})"
+		echo_content red "仓库: andydevopsapp/${GitHub_Repo_Name}/${GitHub_Path} (${GitHub_Repo_Branch})"
 		echo_content "skyBlue" "============================"
 		for i in "${!Memu_Items[@]}"; do
 			((i == 0)) && continue

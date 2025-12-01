@@ -25,20 +25,22 @@ echo_content() {
 Memu_Items=(
 	"退出"
 	"安装 devops-desktop"
-	"部署 devops-desktop"
 	"安装 devops-gitlab"
+	"部署 devops-desktop"
 	"部署 devops-gitlab"
-	"Postman工具"
+	"工具 Docker"
+	"工具 Postman"	
 )
 
 
 # 每个编号对应一个函数（index 对齐 MENU_ITEMS）
 Mennu_Actions=(
 	"exit 0"
-	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops/setup_desktop.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))"
-	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops/devops_desktop.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))"
-	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops/setup_gitlab.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))"
-	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops/devops_gitlab.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16))"
+	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) setup_desktop"
+	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) setup_gitlab"
+	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) devops_desktop"
+	"bash <(curl -sL devopsandy.hdyauto.qzz.io/devops.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) devops_gitlab"
+	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_docker.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) linux_docker"
 	"bash <(curl -sL tool.hdyauto.qzz.io/sys/fun_podman.sh?$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | cut -c1-16)) linux_podman"
 )
 
